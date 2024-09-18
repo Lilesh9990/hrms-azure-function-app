@@ -19,9 +19,9 @@
 		<start-class>com.adt.azfunction.FunctionApplication</start-class>
 		<azure.functions.maven.plugin.version>1.32.0</azure.functions.maven.plugin.version>
 		<functionAppName>hrms-azure-function-app</functionAppName>
-		<functionAppRegion>germanywestcentral</functionAppRegion>
+		<functionAppRegion>centralindia</functionAppRegion>
 		<functionResourceGroup>alpha_resource_group</functionResourceGroup>
-		<functionAppServicePlanName>sample-service-plan</functionAppServicePlanName>
+		<functionAppServicePlanName>consumption</functionAppServicePlanName>
 		<functionPricingTier>Y1</functionPricingTier>
 	</properties>
 	<dependencies>
@@ -30,15 +30,12 @@
 			<artifactId>spring-data-jpa</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>
-				org.springframework.cloud</groupId>
-			<artifactId>
-				spring-cloud-function-adapter-azure</artifactId>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-function-adapter-azure</artifactId>
 			<version>4.1.0</version>
 		</dependency>
 		<dependency>
-			<groupId>
-				org.projectlombok</groupId>
+			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
@@ -49,59 +46,45 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>
-				spring-boot-starter-test</artifactId>
+			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>
-					org.apache.maven.plugins</groupId>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-deploy-plugin</artifactId>
 				<configuration>
-					<skip>
-						true</skip>
+					<skip>true</skip>
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>
-					com.microsoft.azure</groupId>
+				<groupId>com.microsoft.azure</groupId>
 				<artifactId>azure-functions-maven-plugin</artifactId>
-				<version>
-					${azure.functions.maven.plugin.version}</version>
+				<version>${azure.functions.maven.plugin.version}</version>
 				<configuration>
-					<appName>
-						${functionAppName}</appName>
+					<appName>${functionAppName}</appName>
 					<resourceGroup>${functionResourceGroup}</resourceGroup>
-					<region>
-						${functionAppRegion}</region>
-					<appServicePlanName>
-						${functionAppServicePlanName}</appServicePlanName>
-					<pricingTier>
-						${functionPricingTier}</pricingTier>
-					<hostJson>
-						${project.basedir}/src/main/resources/host.json</hostJson>
-					<localSettingsJson>
-						${project.basedir}/src/main/resources/local.settings.json</localSettingsJson>
+					<region>${functionAppRegion}</region>
+					<appServicePlanName>${functionAppServicePlanName}</appServicePlanName>
+					<pricingTier>${functionPricingTier}</pricingTier>
+					<hostJson>${project.basedir}/host.json</hostJson>
+					<localSettingsJson>${project.basedir}/local.settings.json</localSettingsJson>
 					<runtime>
-						<os>
-							linux</os>
-						<javaVersion>21</javaVersion>
+						<os>linux</os>
+						<javaVersion>17</javaVersion>
 					</runtime>
 					<appSettings>
 						<property>
-							<name>
-								FUNCTIONS_EXTENSION_VERSION</name>
+							<name>FUNCTIONS_EXTENSION_VERSION</name>
 							<value>~4</value>
 						</property>
 					</appSettings>
 				</configuration>
 				<executions>
 					<execution>
-						<id>
-							package-functions</id>
+						<id>package-functions</id>
 						<goals>
 							<goal>package</goal>
 						</goals>
@@ -109,14 +92,12 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<groupId>
-					org.springframework.boot</groupId>
+				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<excludes>
 						<exclude>
-							<groupId>
-								org.projectlombok</groupId>
+							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
